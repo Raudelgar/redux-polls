@@ -8,6 +8,7 @@ import Nav from './components/nav/Nav.js';
 import Home from './components/pages/home/Home.js';
 import Leaderboard from './components/pages/leaderboard/Leaderboard.js';
 import AddPoll from './components/pages/addPoll/AddPoll.js';
+import PollView from './components/pages/pollView/PollView.js';
 
 class App extends React.Component {
 	componentDidMount() {
@@ -33,6 +34,7 @@ class App extends React.Component {
 								render={(routes) => <Leaderboard {...this.props} />}
 							/>
 							<Route path='/add' component={AddPoll} />
+							<Route path='/polls/:id' component={PollView} />
 						</Switch>
 					)}
 				</div>
