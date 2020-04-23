@@ -7,6 +7,7 @@ import { handleInitialData } from './actions/rootActions.js';
 import Nav from './components/nav/Nav.js';
 import Home from './components/pages/home/Home.js';
 import Leaderboard from './components/pages/leaderboard/Leaderboard.js';
+import AddPoll from './components/pages/addPoll/AddPoll.js';
 
 class App extends React.Component {
 	componentDidMount() {
@@ -31,6 +32,7 @@ class App extends React.Component {
 								path='/leaderboard'
 								render={(routes) => <Leaderboard {...this.props} />}
 							/>
+							<Route path='/add' component={AddPoll} />
 						</Switch>
 					)}
 				</div>

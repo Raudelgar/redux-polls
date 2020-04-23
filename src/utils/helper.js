@@ -66,3 +66,22 @@ export function usersInit(users) {
 	}
 	return result;
 }
+
+export function checkPollSubmit(poll) {
+	if (
+		poll.question &&
+		poll.question.trim().length > 0 &&
+		poll.optA &&
+		poll.optA.trim().length > 0 &&
+		poll.optB &&
+		poll.optB.trim().length > 0 &&
+		poll.optC &&
+		poll.optC.trim().length > 0 &&
+		poll.optD &&
+		poll.optD.trim().length > 0
+	) {
+		return false;
+	}
+
+	return true;
+}

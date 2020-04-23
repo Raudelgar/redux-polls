@@ -1,0 +1,37 @@
+.add-form {
+	margin: 0 auto;
+	width: 600px;
+}
+
+.add-form label {
+	display: block;
+	font-size: 1.17rem;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+.add-form input {
+	padding: 5px;
+	border: 1px solid #d3d3d3;
+	background-color: #fff;
+	font-size: 1.1rem;
+	width: 100%;
+	outline: none;
+	margin-bottom: 20px;
+}
+
+.add-form button {
+	margin: 0 3%;
+}
+
+.btn {
+	text-transform: uppercase;
+	margin: 35px auto;
+	padding: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.29);
+	cursor: pointer;
+	background: #fff;
+	font-size: 1rem;
+	width: 250px;
+	position: relative;
+}
