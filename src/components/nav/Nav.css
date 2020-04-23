@@ -1,0 +1,28 @@
+.nav {
+	display: block;
+}
+
+.nav ul {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	text-decoration: none;
+}
+
+.nav ul > li {
+	padding: 10px;
+	text-decoration: none;
+}
+
+.nav ul li:first-child {
+	padding-left: 0;
+}
+
+.link {
+	color: #252525;
+	text-decoration: none;
+}
+
+.active {
+	font-weight: bold;
+}
