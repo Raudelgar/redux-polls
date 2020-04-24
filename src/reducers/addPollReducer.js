@@ -23,28 +23,28 @@ export default function addPollReducer(state = {}, action) {
 		case ADD_OPTA:
 			return {
 				...state,
-				optA: action.payload,
+				a: action.payload,
 				reset: false,
 				submit: checkPollSubmit(state),
 			};
 		case ADD_OPTB:
 			return {
 				...state,
-				optB: action.payload,
+				b: action.payload,
 				reset: false,
 				submit: checkPollSubmit(state),
 			};
 		case ADD_OPTC:
 			return {
 				...state,
-				optC: action.payload,
+				c: action.payload,
 				reset: false,
 				submit: checkPollSubmit(state),
 			};
 		case ADD_OPTD:
 			return {
 				...state,
-				optD: action.payload,
+				d: action.payload,
 				reset: false,
 				submit: checkPollSubmit(state),
 			};
@@ -54,15 +54,13 @@ export default function addPollReducer(state = {}, action) {
 				submit: true,
 				reset: true,
 				question: '',
-				optA: '',
-				optB: '',
-				optC: '',
-				optD: '',
+				a: '',
+				b: '',
+				c: '',
+				d: '',
 			};
 		case SUBMIT:
-			return {
-				...state,
-			};
+			return Object.assign(state, action.payload);
 		default:
 			return state;
 	}

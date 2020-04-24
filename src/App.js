@@ -24,11 +24,7 @@ class App extends React.Component {
 					{loading && <h3 style={{ textAlign: 'center' }}>Loading...</h3>}
 					{!loading && (
 						<Switch>
-							<Route
-								exact
-								path='/'
-								render={(routes) => <Home {...this.props} />}
-							/>
+							<Route exact path='/' component={Home} />
 							<Route
 								path='/leaderboard'
 								render={(routes) => <Leaderboard {...this.props} />}
@@ -44,7 +40,6 @@ class App extends React.Component {
 }
 
 export default connect((state) => ({
-	questions: state.questions,
 	loading: state.loading,
 	users: state.users,
 }))(App);

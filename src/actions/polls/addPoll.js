@@ -5,8 +5,9 @@ import {
 	ADD_OPTC,
 	ADD_OPTD,
 	RESET,
-	SUBMIT,
 } from '../types';
+import { postNewPoll } from '../../utils/api';
+import { updatePolls } from '../rootActions';
 
 export function addQuestion(str) {
 	return {
@@ -49,8 +50,26 @@ export function reset() {
 	};
 }
 
-export function submit() {
-	return {
-		type: SUBMIT,
+function submit(formatedPoll) {
+	const idP = formatedPoll.id;
+	const poll = {
+		[idP]: {
+			id: idP,
+			question: formatedPoll.question,
+			timestamp: formatedPoll.timestamp,
+			a: formatedPoll.a,
+			b: formatedPoll.b,
+			c: formatedPoll.c,
+			d: formatedPoll.d,
+		},
+	};
+	return (dispatch) => {
+		dispatch(updatePolls(poll));
+	};
+}
+
+export function handleSubmitPoll(poll) {
+	return (dispatch) => {
+		postNewPoll(poll).then((res) => dispatch(submit(res)));
 	};
 }

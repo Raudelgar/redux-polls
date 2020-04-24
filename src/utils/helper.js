@@ -22,12 +22,26 @@ export function unanwseredInit(polls) {
 		let obj = {};
 		if (polls.hasOwnProperty(key)) {
 			let year = new Date(polls[key].timestamp).getFullYear().toString();
-			if (year === '2016') {
+			if (year !== '2017') {
 				obj.id = polls[key].id;
 				obj.question = polls[key].question;
 
 				result.push(obj);
 			}
+		}
+	}
+	return result;
+}
+
+export function unanwseredUpdate(poll) {
+	const result = [];
+	for (const key in poll) {
+		let obj = {};
+		if (poll.hasOwnProperty(key)) {
+			obj.id = poll[key].id;
+			obj.question = poll[key].question;
+
+			result.push(obj);
 		}
 	}
 	return result;
@@ -71,14 +85,14 @@ export function checkPollSubmit(poll) {
 	if (
 		poll.question &&
 		poll.question.trim().length > 0 &&
-		poll.optA &&
-		poll.optA.trim().length > 0 &&
-		poll.optB &&
-		poll.optB.trim().length > 0 &&
-		poll.optC &&
-		poll.optC.trim().length > 0 &&
-		poll.optD &&
-		poll.optD.trim().length > 0
+		poll.a &&
+		poll.a.trim().length > 0 &&
+		poll.b &&
+		poll.b.trim().length > 0 &&
+		poll.c &&
+		poll.c.trim().length > 0 &&
+		poll.d &&
+		poll.d.trim().length > 0
 	) {
 		return false;
 	}

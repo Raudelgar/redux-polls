@@ -1,25 +1,12 @@
-import { INITIAL_DATA } from '../actions/types.js';
+import { RECEIVE_POLLS, UPDATE_POLLS } from '../actions/types.js';
 
 export default function pollsReducer(state = {}, action) {
 	switch (action.type) {
-		case INITIAL_DATA:
-			return Object.assign({}, state, action.payload[0]);
+		case RECEIVE_POLLS:
+			return Object.assign({}, state, action.payload);
+		case UPDATE_POLLS:
+			return Object.assign(state, action.payload);
 		default:
 			return state;
 	}
 }
-
-/* 
-{
-	questions: {
-		unanswered: {
-			active: false,
-			questions: []
-		},
-		answered: {
-			active: false,
-			questions: []
-		}
-	}
-}
-*/

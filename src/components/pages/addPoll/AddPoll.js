@@ -8,50 +8,48 @@ import {
 	addOptB,
 	addOptC,
 	addOptD,
-	submit,
+	handleSubmitPoll,
 	reset,
 } from '../../../actions/polls/addPoll';
 
 class AddPoll extends React.Component {
 	addQuestion = (e) => {
 		e.preventDefault();
-		console.log(e.target.value);
-		this.props.dispatch(addQuestion(e.target.value));
+		this.props.dispatch(addQuestion(this.question.value));
 	};
 	addOptionA = (e) => {
 		e.preventDefault();
-		console.log(e.target.value);
-		this.props.dispatch(addOptA(e.target.value));
+		this.props.dispatch(addOptA(this.optionA.value));
 	};
 	addOptionB = (e) => {
 		e.preventDefault();
-		console.log(e.target.value);
-		this.props.dispatch(addOptB(e.target.value));
+		this.props.dispatch(addOptB(this.optionB.value));
 	};
 	addOptionC = (e) => {
 		e.preventDefault();
-		console.log(e.target.value);
-		this.props.dispatch(addOptC(e.target.value));
+		this.props.dispatch(addOptC(this.optionC.value));
 	};
 	addOptionD = (e) => {
 		e.preventDefault();
-		console.log(e.target.value);
-		this.props.dispatch(addOptD(e.target.value));
+		this.props.dispatch(addOptD(this.optionD.value));
 	};
 	submit = (e) => {
 		e.preventDefault();
-		console.log('submit');
-		this.props.dispatch(submit());
-		this.props.dispatch(reset());
+		this.question.value = '';
+		this.optionA.value = '';
+		this.optionB.value = '';
+		this.optionC.value = '';
+		this.optionD.value = '';
+		console.log(this.props.addPoll);
+		this.props.dispatch(handleSubmitPoll(this.props.addPoll));
 	};
 	reset = (e) => {
 		e.preventDefault();
-		console.log('reset');
 		this.props.dispatch(reset());
 	};
 	render() {
 		const { addPoll } = this.props;
-		const { submit, reset, question, optA, optB, optC, optD } = addPoll;
+		const { submit, reset } = addPoll;
 		return (
 			<div>
 				<form className='add-form'>
@@ -59,8 +57,7 @@ class AddPoll extends React.Component {
 					<input
 						type='text'
 						id='question'
-						// ref={(input) => (this.question = input)}
-						value={!question ? '' : question}
+						ref={(input) => (this.question = input)}
 						onChange={this.addQuestion}
 					/>
 					<h3>What are the options?</h3>
@@ -68,32 +65,28 @@ class AddPoll extends React.Component {
 					<input
 						type='text'
 						id='optA'
-						// ref={(input) => (this.optionA = input)}
-						value={!optA ? '' : optA}
+						ref={(input) => (this.optionA = input)}
 						onChange={this.addOptionA}
 					/>
 					<label htmlFor='optB'>B.</label>
 					<input
 						type='text'
 						id='optB'
-						// ref={(input) => (this.optionB = input)}
-						value={!optB ? '' : optB}
+						ref={(input) => (this.optionB = input)}
 						onChange={this.addOptionB}
 					/>
 					<label htmlFor='optC'>C.</label>
 					<input
 						type='text'
 						id='optC'
-						// ref={(input) => (this.optionC = input)}
-						value={!optC ? '' : optC}
+						ref={(input) => (this.optionC = input)}
 						onChange={this.addOptionC}
 					/>
 					<label htmlFor='optD'>D.</label>
 					<input
 						type='text'
 						id='optD'
-						// ref={(input) => (this.optionD = input)}
-						value={!optD ? '' : optD}
+						ref={(input) => (this.optionD = input)}
 						onChange={this.addOptionD}
 					/>
 					<button
