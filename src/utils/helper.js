@@ -64,23 +64,6 @@ export function anwseredInit(polls) {
 	return result;
 }
 
-// export function usersInit(users) {
-// 	const result = [];
-// 	for (const key in users) {
-// 		let obj = {};
-// 		if (users.hasOwnProperty(key)) {
-// 			obj.id = users[key].id;
-// 			obj.name = users[key].name;
-// 			obj.avatar = users[key].avatarURL;
-// 			obj.polls = users[key].polls.length;
-// 			obj.answers = Object.keys(users[key].answers).length;
-
-// 			result.push(obj);
-// 		}
-// 	}
-// 	return result;
-// }
-
 export function checkPollSubmit(poll) {
 	if (
 		poll.question &&
@@ -94,8 +77,22 @@ export function checkPollSubmit(poll) {
 		poll.d &&
 		poll.d.trim().length > 0
 	) {
-		return false;
+		return true;
 	}
 
-	return true;
+	return false;
+}
+
+export function checkPollReset(poll) {
+	if (
+		poll.question.trim().length > 0 ||
+		poll.a.trim().length > 0 ||
+		poll.b.trim().length > 0 ||
+		poll.c.trim().length > 0 ||
+		poll.d.trim().length > 0
+	) {
+		return true;
+	}
+
+	return false;
 }

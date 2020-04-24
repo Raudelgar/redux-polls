@@ -1,58 +1,17 @@
-import {
-	ADD_QUESTION,
-	ADD_OPTA,
-	ADD_OPTB,
-	ADD_OPTC,
-	ADD_OPTD,
-	RESET,
-	SUBMIT,
-	INITIAL_DATA,
-} from '../actions/types.js';
-
-import { checkPollSubmit } from '../utils/helper.js';
+import { RESET, SUBMIT, SET_FORM_POLL } from '../actions/types.js';
 
 export default function addPollReducer(state = {}, action) {
 	switch (action.type) {
-		case ADD_QUESTION:
+		case SET_FORM_POLL:
 			return {
 				...state,
-				question: action.payload,
-				reset: false,
-				submit: checkPollSubmit(state),
-			};
-		case ADD_OPTA:
-			return {
-				...state,
-				a: action.payload,
-				reset: false,
-				submit: checkPollSubmit(state),
-			};
-		case ADD_OPTB:
-			return {
-				...state,
-				b: action.payload,
-				reset: false,
-				submit: checkPollSubmit(state),
-			};
-		case ADD_OPTC:
-			return {
-				...state,
-				c: action.payload,
-				reset: false,
-				submit: checkPollSubmit(state),
-			};
-		case ADD_OPTD:
-			return {
-				...state,
-				d: action.payload,
-				reset: false,
-				submit: checkPollSubmit(state),
+				submit: action.payload.submit,
+				reset: action.payload.reset,
 			};
 		case RESET:
-		case INITIAL_DATA:
 			return {
-				submit: true,
-				reset: true,
+				submit: false,
+				reset: false,
 				question: '',
 				a: '',
 				b: '',
@@ -65,15 +24,3 @@ export default function addPollReducer(state = {}, action) {
 			return state;
 	}
 }
-
-/*
-addPoll: {
-  submit: true,
-  reset: true,
-  question: '',
-  optA: '',
-  optB: '',
-  optC: '',
-  optD: ''
-}
-*/

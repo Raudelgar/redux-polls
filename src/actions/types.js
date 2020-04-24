@@ -1,16 +1,11 @@
-export const INITIAL_DATA = 'INITIAL_DATA';
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 export const UPDATE_QUESTIONS = 'UPDATE_QUESTIONS';
 export const ANSWERED_ACTIVE = 'ANSWERED_ACTIVE';
 export const UNANSWERED_ACTIVE = 'UNANSWERED_ACTIVE';
-export const ADD_QUESTION = 'ADD_QUESTION';
-export const ADD_OPTA = 'ADD_OPTA';
-export const ADD_OPTB = 'ADD_OPTB';
-export const ADD_OPTC = 'ADD_OPTC';
-export const ADD_OPTD = 'ADD_OPTD';
 export const RESET = 'RESET';
 export const SUBMIT = 'SUBMIT';
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const RECEIVE_POLLS = 'RECEIVE_POLLS';
 export const UPDATE_POLLS = 'UPDATE_POLLS';
 export const LOADER_OFF = 'LOADER_OFF';
+export const SET_FORM_POLL = 'SET_FORM_POLL';

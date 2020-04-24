@@ -3,53 +3,58 @@ import { connect } from 'react-redux';
 
 import './AddPoll.css';
 import {
-	addQuestion,
-	addOptA,
-	addOptB,
-	addOptC,
-	addOptD,
 	handleSubmitPoll,
+	handlePollForm,
 	reset,
 } from '../../../actions/polls/addPoll';
 
 class AddPoll extends React.Component {
-	addQuestion = (e) => {
+	componentWillUnmount() {
+		this.cleanUp();
+	}
+
+	handleInputForm = (e) => {
 		e.preventDefault();
-		this.props.dispatch(addQuestion(this.question.value));
+		this.newPoll = {
+			question: this.question.value,
+			a: this.optionA.value,
+			b: this.optionB.value,
+			c: this.optionC.value,
+			d: this.optionD.value,
+		};
+
+		this.props.dispatch(handlePollForm(this.newPoll));
 	};
-	addOptionA = (e) => {
-		e.preventDefault();
-		this.props.dispatch(addOptA(this.optionA.value));
-	};
-	addOptionB = (e) => {
-		e.preventDefault();
-		this.props.dispatch(addOptB(this.optionB.value));
-	};
-	addOptionC = (e) => {
-		e.preventDefault();
-		this.props.dispatch(addOptC(this.optionC.value));
-	};
-	addOptionD = (e) => {
-		e.preventDefault();
-		this.props.dispatch(addOptD(this.optionD.value));
-	};
+
 	submit = (e) => {
 		e.preventDefault();
+		this.props.dispatch(handleSubmitPoll(this.newPoll));
+		this.cleanUp();
+	};
+	reset = (e) => {
+		e.preventDefault();
+		this.cleanUp();
+		this.props.dispatch(reset());
+	};
+
+	cleanUp = (submit) => {
 		this.question.value = '';
 		this.optionA.value = '';
 		this.optionB.value = '';
 		this.optionC.value = '';
 		this.optionD.value = '';
-		console.log(this.props.addPoll);
-		this.props.dispatch(handleSubmitPoll(this.props.addPoll));
-	};
-	reset = (e) => {
-		e.preventDefault();
-		this.props.dispatch(reset());
+		this.newPoll = {
+			question: this.question.value,
+			a: this.optionA.value,
+			b: this.optionB.value,
+			c: this.optionC.value,
+			d: this.optionD.value,
+		};
 	};
 	render() {
 		const { addPoll } = this.props;
 		const { submit, reset } = addPoll;
+		console.log(this.newPoll);
 		return (
 			<div>
 				<form className='add-form'>
@@ -58,7 +63,7 @@ class AddPoll extends React.Component {
 						type='text'
 						id='question'
 						ref={(input) => (this.question = input)}
-						onChange={this.addQuestion}
+						onChange={this.handleInputForm}
 					/>
 					<h3>What are the options?</h3>
 					<label htmlFor='optA'>A.</label>
@@ -66,38 +71,38 @@ class AddPoll extends React.Component {
 						type='text'
 						id='optA'
 						ref={(input) => (this.optionA = input)}
-						onChange={this.addOptionA}
+						onChange={this.handleInputForm}
 					/>
 					<label htmlFor='optB'>B.</label>
 					<input
 						type='text'
 						id='optB'
 						ref={(input) => (this.optionB = input)}
-						onChange={this.addOptionB}
+						onChange={this.handleInputForm}
 					/>
 					<label htmlFor='optC'>C.</label>
 					<input
 						type='text'
 						id='optC'
 						ref={(input) => (this.optionC = input)}
-						onChange={this.addOptionC}
+						onChange={this.handleInputForm}
 					/>
 					<label htmlFor='optD'>D.</label>
 					<input
 						type='text'
 						id='optD'
 						ref={(input) => (this.optionD = input)}
-						onChange={this.addOptionD}
+						onChange={this.handleInputForm}
 					/>
 					<button
-						disabled={submit ? 'disabled' : false}
+						disabled={submit ? false : 'disabled'}
 						className='btn'
 						onClick={this.submit}
 					>
 						submit
 					</button>
 					<button
-						disabled={reset ? 'disabled' : false}
+						disabled={reset ? false : 'disabled'}
 						className='btn'
 						onClick={this.reset}
 					>

@@ -1,48 +1,7 @@
-import {
-	ADD_QUESTION,
-	ADD_OPTA,
-	ADD_OPTB,
-	ADD_OPTC,
-	ADD_OPTD,
-	RESET,
-} from '../types';
+import { RESET, SET_FORM_POLL } from '../types';
 import { postNewPoll } from '../../utils/api';
-import { updatePolls } from '../rootActions';
-
-export function addQuestion(str) {
-	return {
-		type: ADD_QUESTION,
-		payload: str,
-	};
-}
-
-export function addOptA(str) {
-	return {
-		type: ADD_OPTA,
-		payload: str,
-	};
-}
-
-export function addOptB(str) {
-	return {
-		type: ADD_OPTB,
-		payload: str,
-	};
-}
-
-export function addOptC(str) {
-	return {
-		type: ADD_OPTC,
-		payload: str,
-	};
-}
-
-export function addOptD(str) {
-	return {
-		type: ADD_OPTD,
-		payload: str,
-	};
-}
+import { updatePolls } from './polls';
+import { checkPollSubmit, checkPollReset } from '../../utils/helper';
 
 export function reset() {
 	return {
@@ -65,6 +24,17 @@ function submit(formatedPoll) {
 	};
 	return (dispatch) => {
 		dispatch(updatePolls(poll));
+	};
+}
+
+export function handlePollForm(poll) {
+	console.log(poll);
+	return {
+		type: SET_FORM_POLL,
+		payload: {
+			submit: checkPollSubmit(poll),
+			reset: checkPollReset(poll),
+		},
 	};
 }
 

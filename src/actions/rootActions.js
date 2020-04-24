@@ -1,37 +1,13 @@
-import {
-	RECEIVE_USERS,
-	RECEIVE_POLLS,
-	LOADER_OFF,
-	UPDATE_POLLS,
-} from './types.js';
+import { LOADER_OFF } from './types.js';
 import { fetchAllData } from '../utils/api.js';
+import { setUsers } from './users/users.js';
+import { setPolls } from './polls/polls.js';
 
 function init(arr) {
 	return (dispatch) => {
 		dispatch(setUsers(arr[1]));
 		dispatch(setPolls(arr[0]));
 		dispatch(loaderOff());
-	};
-}
-
-function setUsers(users) {
-	return {
-		type: RECEIVE_USERS,
-		payload: users,
-	};
-}
-
-function setPolls(polls) {
-	return {
-		type: RECEIVE_POLLS,
-		payload: polls,
-	};
-}
-
-export function updatePolls(poll) {
-	return {
-		type: UPDATE_POLLS,
-		payload: poll,
 	};
 }
 
