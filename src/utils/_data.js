@@ -32,6 +32,16 @@ let users = {
 		},
 		polls: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
 	},
+	raudelgar: {
+		id: 'raudelgar',
+		name: 'Raudel Garcia',
+		avatarURL: 'https://avatars3.githubusercontent.com/u/27445545?v=4',
+		answers: {
+			vthrdm985a262al8qx3do: 'a',
+			xj352vofupe1dqz9emx13r: 'a',
+		},
+		polls: ['loxhs1bqm25b708cmbf3g', 'vthrdm985a262al8qx3do'],
+	},
 };
 
 let polls = {
@@ -178,13 +188,13 @@ function generateUID() {
 
 export function _getUsers() {
 	return new Promise((res, rej) => {
-		setTimeout(() => res({ ...users }), 1000);
+		setTimeout(() => res({ ...users }), 2000);
 	});
 }
 
 export function _getPolls() {
 	return new Promise((res, rej) => {
-		setTimeout(() => res({ ...polls }), 1000);
+		setTimeout(() => res({ ...polls }), 2000);
 	});
 }
 
@@ -223,7 +233,7 @@ export function _savePoll(poll) {
 			};
 
 			res(formattedPoll);
-		}, 1000);
+		}, 2000);
 	});
 }
 
@@ -256,6 +266,6 @@ export function _savePollAnswer({ authedUser, id, answer }) {
 			};
 
 			res();
-		}, 500);
+		}, 1000);
 	});
 }

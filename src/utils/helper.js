@@ -22,12 +22,26 @@ export function unanwseredInit(polls) {
 		let obj = {};
 		if (polls.hasOwnProperty(key)) {
 			let year = new Date(polls[key].timestamp).getFullYear().toString();
-			if (year === '2016') {
+			if (year !== '2017') {
 				obj.id = polls[key].id;
 				obj.question = polls[key].question;
 
 				result.push(obj);
 			}
+		}
+	}
+	return result;
+}
+
+export function unanwseredUpdate(poll) {
+	const result = [];
+	for (const key in poll) {
+		let obj = {};
+		if (poll.hasOwnProperty(key)) {
+			obj.id = poll[key].id;
+			obj.question = poll[key].question;
+
+			result.push(obj);
 		}
 	}
 	return result;
@@ -50,19 +64,43 @@ export function anwseredInit(polls) {
 	return result;
 }
 
-export function usersInit(users) {
-	const result = [];
-	for (const key in users) {
-		let obj = {};
-		if (users.hasOwnProperty(key)) {
-			obj.id = users[key].id;
-			obj.name = users[key].name;
-			obj.avatar = users[key].avatarURL;
-			obj.polls = users[key].polls.length;
-			obj.answers = Object.keys(users[key].answers).length;
-
-			result.push(obj);
-		}
+export function checkPollSubmit(poll) {
+	if (
+		poll.question &&
+		poll.question.trim().length > 0 &&
+		poll.a &&
+		poll.a.trim().length > 0 &&
+		poll.b &&
+		poll.b.trim().length > 0 &&
+		poll.c &&
+		poll.c.trim().length > 0 &&
+		poll.d &&
+		poll.d.trim().length > 0
+	) {
+		return true;
 	}
-	return result;
+
+	return false;
+}
+
+export function checkPollReset(poll) {
+	if (
+		poll.question.trim().length > 0 ||
+		poll.a.trim().length > 0 ||
+		poll.b.trim().length > 0 ||
+		poll.c.trim().length > 0 ||
+		poll.d.trim().length > 0
+	) {
+		return true;
+	}
+
+	return false;
+}
+
+export function isObject(item) {
+	return Object.prototype.toString.call(item) === '[object Object]';
+}
+
+export function getPercentage(count, total) {
+	return total === 0 ? 0 : parseInt((count / total) * 100, 10);
 }

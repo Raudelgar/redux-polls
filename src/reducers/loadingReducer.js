@@ -1,8 +1,8 @@
-import { INITIAL_DATA } from '../actions/types.js';
+import { LOADER_OFF } from '../actions/types.js';
 
 export default function loadingReducer(state = true, action) {
 	switch (action.type) {
-		case INITIAL_DATA:
+		case LOADER_OFF:
 			return false;
 		default:
 			return state;
