@@ -2,23 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Questions from './Questions.js';
-import {
-	answeredActive,
-	unansweredActive,
-	handleQuestions,
-} from '../../../actions/polls/questions.js';
+// import { handleQuestions } from '../../../actions/polls/questions.js';
 import './Home.css';
 
 class Home extends React.Component {
-	componentDidMount() {
-		this.props.dispatch(handleQuestions(this.props.polls));
+	constructor(props) {
+		super(props);
+		this.state = {
+			showAnswered: false,
+		};
 	}
-
-	answeredActive = () => this.props.dispatch(answeredActive());
-	unansweredActive = () => this.props.dispatch(unansweredActive());
 
 	render() {
 		const { questions } = this.props;
+
 		return (
 			<>
 				{Object.keys(questions).length && (
@@ -26,31 +23,34 @@ class Home extends React.Component {
 						<div className='dashboard-toggle'>
 							<button
 								style={{
-									textDecoration: questions.unanswered.active
+									textDecoration: !this.state.showAnswered
 										? 'underline'
 										: 'none',
 								}}
-								onClick={this.unansweredActive}
+								onClick={() => this.setState({ showAnswered: false })}
 							>
 								Unanswered
 							</button>
-							<span> | </span>
+							<span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+								{' '}
+								|{' '}
+							</span>
 							<button
 								style={{
-									textDecoration: questions.answered.active
+									textDecoration: this.state.showAnswered
 										? 'underline'
 										: 'none',
 								}}
-								onClick={this.answeredActive}
+								onClick={() => this.setState({ showAnswered: true })}
 							>
 								Answered
 							</button>
 						</div>
 						<ul className='dashboard-list'>
-							{questions.unanswered.active && (
+							{!this.state.showAnswered && (
 								<Questions list={questions.unanswered.questions} />
 							)}
-							{questions.answered.active && (
+							{this.state.showAnswered && (
 								<Questions list={questions.answered.questions} />
 							)}
 						</ul>
@@ -61,7 +61,26 @@ class Home extends React.Component {
 	}
 }
 
-export default connect((state) => ({
-	polls: state.polls,
-	questions: state.questions,
-}))(Home);
+function mapStateToProps({ authedUser, users, polls }) {
+	const userAnswers = users[authedUser].answers;
+	const answeresPoll = userAnswers
+		.map((id) => polls[id])
+		.sort((a, b) => a.timestamp - b.timstamp);
+	const unansweresPoll = Object.keys(polls)
+		.filter((id) => !userAnswers.includes(id))
+		.map((id) => polls[id])
+		.sort((a, b) => a.timestamp - b.timstamp);
+
+	return {
+		questions: {
+			unanswered: {
+				questions: unansweresPoll,
+			},
+			answered: {
+				questions: answeresPoll,
+			},
+		},
+	};
+}
+
+export default connect(mapStateToProps)(Home);
