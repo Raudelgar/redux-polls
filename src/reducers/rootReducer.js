@@ -1,16 +1,14 @@
 import { combineReducers } from 'redux';
-import questionsReducer from './questionsReducer.js';
-import loadingReducer from './loadingReducer.js';
+import { loadingBarReducer } from 'react-redux-loading-bar';
 import usersReducer from './usersReducer.js';
-import addPollReducer from './addPollReducer.js';
 import pollsReducer from './pollsReducer.js';
+import authUserReducer from './authUserReducer.js';
 
 const INITIAL_STATE = {
-	loading: loadingReducer,
-	questions: questionsReducer,
+	authedUser: authUserReducer,
+	loadingBar: loadingBarReducer,
 	polls: pollsReducer,
 	users: usersReducer,
-	addPoll: addPollReducer,
 };
 
 export default combineReducers(INITIAL_STATE);

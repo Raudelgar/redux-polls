@@ -9,3 +9,5 @@ export const RECEIVE_POLLS = 'RECEIVE_POLLS';
 export const UPDATE_POLLS = 'UPDATE_POLLS';
 export const LOADER_OFF = 'LOADER_OFF';
 export const SET_FORM_POLL = 'SET_FORM_POLL';
+export const SET_AUTH_USER = 'SET_AUTH_USER';
+export const ADD_ANSWER = 'ADD_ANSWER';

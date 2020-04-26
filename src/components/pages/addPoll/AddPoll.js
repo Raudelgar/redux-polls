@@ -2,67 +2,82 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import './AddPoll.css';
-import {
-	handleSubmitPoll,
-	handlePollForm,
-	reset,
-} from '../../../actions/polls/addPoll';
+import { handleSubmitPoll } from '../../../actions/polls/addPoll';
 
 class AddPoll extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			question: '',
+			a: '',
+			b: '',
+			c: '',
+			d: '',
+		};
+		this.resetRef = React.createRef(false);
+		this.submitRef = React.createRef(false);
+	}
+
 	componentWillUnmount() {
 		this.cleanUp();
 	}
 
 	handleInputForm = (e) => {
 		e.preventDefault();
-		this.newPoll = {
-			question: this.question.value,
-			a: this.optionA.value,
-			b: this.optionB.value,
-			c: this.optionC.value,
-			d: this.optionD.value,
-		};
-
-		this.props.dispatch(handlePollForm(this.newPoll));
+		const { name, value } = e.target;
+		this.resetRef.current = true;
+		this.setState({ [name]: value });
 	};
 
-	submit = (e) => {
+	isSubmitBtnVisible = () => {
+		const { question, a, b, c, d } = this.state;
+		if (
+			question.trim().length > 0 &&
+			a.trim().length > 0 &&
+			b.trim().length > 0 &&
+			c.trim().length > 0 &&
+			d.trim().length > 0
+		) {
+			this.submitRef.current = true;
+			return true;
+		}
+		this.submitRef.current = false;
+		return false;
+	};
+
+	handleSubmitForm = (e) => {
 		e.preventDefault();
-		this.props.dispatch(handleSubmitPoll(this.newPoll));
-		this.cleanUp();
+		this.props.history.push('/');
+		this.props.dispatch(handleSubmitPoll(this.state));
 	};
+
 	reset = (e) => {
 		e.preventDefault();
 		this.cleanUp();
-		this.props.dispatch(reset());
+		this.resetRef.current = false;
 	};
 
-	cleanUp = (submit) => {
-		this.question.value = '';
-		this.optionA.value = '';
-		this.optionB.value = '';
-		this.optionC.value = '';
-		this.optionD.value = '';
-		this.newPoll = {
-			question: this.question.value,
-			a: this.optionA.value,
-			b: this.optionB.value,
-			c: this.optionC.value,
-			d: this.optionD.value,
-		};
+	cleanUp = () => {
+		this.setState({
+			question: '',
+			a: '',
+			b: '',
+			c: '',
+			d: '',
+		});
 	};
 	render() {
-		const { addPoll } = this.props;
-		const { submit, reset } = addPoll;
-		console.log(this.newPoll);
+		const { question, a, b, c, d } = this.state;
+		this.isSubmitBtnVisible();
 		return (
 			<div>
-				<form className='add-form'>
+				<form className='add-form' onSubmit={this.handleSubmitForm}>
 					<label htmlFor='question'>What is your question?</label>
 					<input
 						type='text'
 						id='question'
-						ref={(input) => (this.question = input)}
+						name='question'
+						value={question}
 						onChange={this.handleInputForm}
 					/>
 					<h3>What are the options?</h3>
@@ -70,39 +85,42 @@ class AddPoll extends React.Component {
 					<input
 						type='text'
 						id='optA'
-						ref={(input) => (this.optionA = input)}
+						name='a'
+						value={a}
 						onChange={this.handleInputForm}
 					/>
 					<label htmlFor='optB'>B.</label>
 					<input
 						type='text'
 						id='optB'
-						ref={(input) => (this.optionB = input)}
+						name='b'
+						value={b}
 						onChange={this.handleInputForm}
 					/>
 					<label htmlFor='optC'>C.</label>
 					<input
 						type='text'
 						id='optC'
-						ref={(input) => (this.optionC = input)}
+						name='c'
+						value={c}
 						onChange={this.handleInputForm}
 					/>
 					<label htmlFor='optD'>D.</label>
 					<input
 						type='text'
 						id='optD'
-						ref={(input) => (this.optionD = input)}
+						name='d'
+						value={d}
 						onChange={this.handleInputForm}
 					/>
 					<button
-						disabled={submit ? false : 'disabled'}
+						disabled={this.submitRef.current ? false : 'disabled'}
 						className='btn'
-						onClick={this.submit}
 					>
 						submit
 					</button>
 					<button
-						disabled={reset ? false : 'disabled'}
+						disabled={this.resetRef.current ? false : 'disabled'}
 						className='btn'
 						onClick={this.reset}
 					>
@@ -114,6 +132,4 @@ class AddPoll extends React.Component {
 	}
 }
 
-export default connect((state) => ({
-	addPoll: state.addPoll,
-}))(AddPoll);
+export default connect()(AddPoll);
